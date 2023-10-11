@@ -6,3 +6,13 @@ import matplotlib
 url = "https://raw.githubusercontent.com/Zdude-11/ek121-finalproject-shit/main/Detailed_Statistics_Departures.csv"
 flightdata = pd.read_csv(url)
 print(flightdata)
+
+cancelledflightcount = 0
+print(flightdata["Actual departure time"])
+for i in range(len(flightdata["Actual departure time"])):
+#print(type(flightdata["Actual departure time"]))
+    if flightdata["Actual departure time"][i] == "00:00":
+        #print(flightdata["Flight Number"][i])
+        cancelledflightcount += 1
+        
+print(cancelledflightcount)
