@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib
 
 #Import data from github
-url = "https://raw.githubusercontent.com/Zdude-11/ek121-finalproject-shit/main/Detailed_Statistics_Departures.csv"
+url = "https://raw.githubusercontent.com/Zdude-11/ek121-finalproject-shit/main/Detailed_Statistics_Departures%20(1).csv"
 flightdata = pd.read_csv(url)
 print(flightdata)
 
