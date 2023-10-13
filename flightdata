@@ -16,3 +16,7 @@ for i in range(len(flightdata["Actual departure time"])):
         cancelledflightcount += 1
         
 print(cancelledflightcount)
+
+#conversion of the date format to datetime string format
+
+flightdata["Date (MM/DD/YYYY)"] = pd.to_datetime(flightdata["Date (MM/DD/YYYY)"], format='%m/%d/%Y')
