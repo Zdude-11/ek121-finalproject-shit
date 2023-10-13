@@ -1,4 +1,11 @@
-#the delay time for flights increase leading up to christmas.
-#delay times get longer throughout the day.  (complicated)
+#the average delay time for flights increase leading up to christmas.
+-set an x axis which is days leading up to christmas
+-for each x the y is going to be a mean leading up to that day 
+-if time delay is 20 minutes or later add that to the mean
+-dont includes data points that are on time or are less than scheduled departure times
 #average actual departure times are at a later time than the scheduled time for all flgihts.
-#
+-find the mean and compare them 
+#the average delay time has no correlation to the time of day in units of hours on the x axis
+-wanna create a line graph connecting the point but also have a the margin of error on the graph 
+-need to review my stats note from high school 
+
