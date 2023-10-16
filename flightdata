@@ -1,22 +1,28 @@
 import numpy as np
 import pandas as pd
 import matplotlib
+import datetime
 
 #Import data from github
 url = "https://raw.githubusercontent.com/Zdude-11/ek121-finalproject-shit/main/Detailed_Statistics_Departures%20(1).csv"
 flightdata = pd.read_csv(url)
 print(flightdata)
+modflightdata = flightdata.copy()
 
-cancelledflightcount = 0
-print(flightdata["Actual departure time"])
-for i in range(len(flightdata["Actual departure time"])):
+#cancelledflightcount = 0
+#print(modflightdata["Actual departure time"])
+#for i in range(len(modflightdata["Actual departure time"])):
 #print(type(flightdata["Actual departure time"]))
-    if flightdata["Actual departure time"][i] == "00:00":
-        #print(flightdata["Flight Number"][i])
-        cancelledflightcount += 1
-        
-print(cancelledflightcount)
+    #if modflightdata["Actual departure time"][i] == "00:00":
+        # print(flightdata["Flight Number"][i])
+        #cancelledflightcount += 1
+#print("The number of canceled flights are",cancelledflightcount)
 
 #conversion of the date format to datetime string format
+modflightdata["Date (MM/DD/YYYY)"] = pd.to_datetime(modflightdata["Date (MM/DD/YYYY)"], format='%m/%d/%Y')
+modflightdata["Scheduled departure time"] = pd.to_datetime(modflightdata["Scheduled departure time"], format='%H:%M')
+modflightdata["Actual departure time"] = pd.to_datetime(modflightdata["Actual departure time"], format='%H:%M') 
 
-flightdata["Date (MM/DD/YYYY)"] = pd.to_datetime(flightdata["Date (MM/DD/YYYY)"], format='%m/%d/%Y')
+print(type(modflightdata["Date (MM/DD/YYYY)"]))
+print(modflightdata.iat[2,1], modflightdata.iat[2,5], modflightdata.iat[2,6])
+
