@@ -26,3 +26,37 @@ modflightdata["Actual departure time"] = pd.to_datetime(modflightdata["Actual de
 print(type(modflightdata["Date (MM/DD/YYYY)"]))
 print(modflightdata.iat[2,1], modflightdata.iat[2,5], modflightdata.iat[2,6])
 
+
+# this line of code is for the comparison between actual mean elapsed flight time and expected mean flight time 
+
+#---------------------code starts here-------------------------------------
+#scheduled elapsed time code
+scheduled_elapsed_time_in_minutes = 0              
+for i in range(len(flightdata["Scheduled elapsed time (Minutes)"])):
+    if flightdata["Scheduled elapsed time (Minutes)"][i] > 0:
+        scheduled_elapsed_time_in_minutes += flightdata["Scheduled elapsed time (Minutes)"][i]
+        count = len(flightdata["Scheduled elapsed time (Minutes)"])
+        count += 1
+if count > 0:
+    mean_scheduled_elapsed_time = scheduled_elapsed_time_in_minutes / count
+    print("Mean Scheduled Elapsed Time:", mean_scheduled_elapsed_time)
+else:
+    print("No positive values in the 'Scheduled elapsed time (Minutes)' column.")
+    
+#actual elapsed time mean code        
+actual_elapsed_time_in_minutes = 0
+for i in range(len(flightdata["Actual elapsed time (Minutes)"])):
+    if flightdata["Actual elapsed time (Minutes)"][i] > 0:
+        actual_elapsed_time_in_minutes += flightdata["Actual elapsed time (Minutes)"][i]
+        count = len(flightdata["Actual elapsed time (Minutes)"])
+        count += 1
+if count > 0:
+    mean_actual_elapsed_time = actual_elapsed_time_in_minutes / count
+    print("Mean Actual Elapsed Time:", mean_actual_elapsed_time)
+else:
+    print("No positive values in the 'Actual elapsed time (Minutes)' column.")
+               
+print(cancelledflightcount)
+
+#-------------------------code ends here-----------------------------
+#this is the analysis for the outputs: Our original hypothesis was that the Actual elapsed time in minutes would be greater then the scheduled elapsed time in minutes for flights. But since the Mean scheduled Elapsed Time, in minutes is actual greater than the Mean actual Elapsed Time in minutes we can conclude that the hypothesis was wrong and that Mean actual Elapsed Time, in minutes, is actual less than the scheduled. 
