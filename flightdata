@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib
-import datetime
+import datetime as dt
 
 #Import data from github
 url = "https://raw.githubusercontent.com/Zdude-11/ek121-finalproject-shit/main/Detailed_Statistics_Departures%20(1).csv"
@@ -22,9 +22,17 @@ modflightdata = flightdata.copy()
 modflightdata["Date (MM/DD/YYYY)"] = pd.to_datetime(modflightdata["Date (MM/DD/YYYY)"], format='%m/%d/%Y')
 modflightdata["Scheduled departure time"] = pd.to_datetime(modflightdata["Scheduled departure time"], format='%H:%M')
 modflightdata["Actual departure time"] = pd.to_datetime(modflightdata["Actual departure time"], format='%H:%M') 
+print(modflightdata.iat[2,5])
+
 
 print(type(modflightdata["Date (MM/DD/YYYY)"]))
 print(modflightdata.iat[2,1], modflightdata.iat[2,5], modflightdata.iat[2,6])
+#modflightdata.iat[2,6] - modflightdata.iat[2,5]
+
+
+for index, row in modflightdata.iterrows():
+    modflightdata["Days since 12.20.2022"] =  modflightdata["Date (MM/DD/YYYY)"] - modflightdata.iat[1,1] 
+print(modflightdata)
 
 
 # this line of code is for the comparison between actual mean elapsed flight time and expected mean flight time 
