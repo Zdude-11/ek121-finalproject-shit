@@ -45,6 +45,32 @@ print(modflightdata)
 print(epochsince)
 print(type(flightdata.iat[1000,9]))
 
+#------------------------code starts---------------------
+
+#hypothesis 1 code
+
+# Filter data for flights leading up to Christmas (December 20, 2022, to December 24, 2022)
+start_date = min(modflightdata["Days since 12.20.2022"])
+end_date = max(modflightdata["Days since 12.20.2022"])
+filtered_data = modflightdata[(modflightdata["Days since 12.20.2022"] >= start_date) & (modflightdata["Days since 12.20.2022"] <= end_date)]
+
+# Calculate the delay time for each flight
+filtered_data["Delay"] = (filtered_data["Scheduled departure time"]-filtered_data["Actual departure time"]).dt.total_seconds()/60
+average_delays = filtered_data.groupby("Days since 12.20.2022")["Delay"].mean()
+
+# Plot the average delays
+plt.figure(figsize=(10, 6))
+plt.plot(average_delays.index, average_delays.values, marker='x')
+plt.title("Average Flight Delay Leading up to Christmas")
+plt.xlabel("Days starting at 12/20/22")
+plt.ylabel("Average Delay (minutes)")
+plt.grid()
+plt.xticks(rotation=69)
+plt.tight_layout()
+plt.show()
+
+#----------------------code stops-------------------------------
+
 #---------------------code starts here-------------------------------------
 #scheduled elapsed time code
 scheduled_elapsed_time_in_minutes = 0              
