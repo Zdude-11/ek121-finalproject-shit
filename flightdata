@@ -6,7 +6,7 @@ import datetime as dt
 #Import data from github
 url = "https://raw.githubusercontent.com/Zdude-11/ek121-finalproject-shit/main/Detailed_Statistics_Departures%20(1).csv"
 flightdata = pd.read_csv(url)
-print(flightdata)
+#print(flightdata)
 modflightdata = flightdata.copy()
 
 #cancelledflightcount = 0
@@ -22,20 +22,28 @@ modflightdata = flightdata.copy()
 modflightdata["Date (MM/DD/YYYY)"] = pd.to_datetime(modflightdata["Date (MM/DD/YYYY)"], format='%m/%d/%Y')
 modflightdata["Scheduled departure time"] = pd.to_datetime(modflightdata["Scheduled departure time"], format='%H:%M')
 modflightdata["Actual departure time"] = pd.to_datetime(modflightdata["Actual departure time"], format='%H:%M') 
-print(modflightdata.iat[2,5])
+#print(modflightdata.iat[2,5])
 
 
-print(type(modflightdata["Date (MM/DD/YYYY)"]))
-print(modflightdata.iat[2,1], modflightdata.iat[2,5], modflightdata.iat[2,6])
+#print(type(modflightdata["Date (MM/DD/YYYY)"]))
+#print(modflightdata.iat[2,1], modflightdata.iat[2,5], modflightdata.iat[2,6])
 #modflightdata.iat[2,6] - modflightdata.iat[2,5]
 
 
 for index, row in modflightdata.iterrows():
     modflightdata["Days since 12.20.2022"] =  modflightdata["Date (MM/DD/YYYY)"] - modflightdata.iat[1,1] 
+    epochsince = pd.DataFrame((modflightdata["Date (MM/DD/YYYY)"] - pd.Timestamp("1970-01-01")) // pd.Timedelta("1s"))
+#epoch seconds to actual seconds and probably days
+start_date = min(epochsince["Date (MM/DD/YYYY)"])
+epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"] - start_date
+epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"]/86400
+modflightdata["Days since 12.20.2022"] = epochsince["Date (MM/DD/YYYY)"].astype(np.int64)
+
+#for index, row in modflightdata.iterrows():
+
 print(modflightdata)
-
-
-# this line of code is for the comparison between actual mean elapsed flight time and expected mean flight time 
+print(epochsince)
+print(type(flightdata.iat[1000,9]))
 
 #---------------------code starts here-------------------------------------
 #scheduled elapsed time code
