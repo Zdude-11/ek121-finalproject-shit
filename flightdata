@@ -24,6 +24,11 @@ epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"] - start_date
 epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"]/86400
 modflightdata["Days since 12.20.2022"] = epochsince["Date (MM/DD/YYYY)"].astype(np.int64)
 
+#This is the analysis for the outputs: Our original hypothesis was that the Actual elapsed time in minutes 
+would be greater then the scheduled elapsed time in minutes for flights. But since the Mean scheduled Elapsed 
+Time, in minutes is actual greater than the Mean actual Elapsed Time in minutes we can conclude that the 
+hypothesis was wrong and that Mean actual Elapsed Time, in minutes, is actual less than the scheduled. 
+
 
 #------------------------code starts---------------------
 
