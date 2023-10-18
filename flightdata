@@ -40,7 +40,8 @@ average_delays = filtered_data.groupby("Days since 12.20.2022")["Delay"].mean()
 
 # Plot the average delays
 plt.figure(figsize=(10, 6))
-plt.plot(average_delays.index, average_delays.values, marker='x')
+plt.bar(average_delays.index,average_delays, color ='pink', 
+        width = 0.4)
 plt.title("Average Flight Delay Leading up to Christmas")
 plt.xlabel("Days starting at 12/20/22")
 plt.ylabel("Average Delay (minutes)")
@@ -49,9 +50,11 @@ plt.xticks(rotation=69)
 plt.tight_layout()
 plt.show()
 
+
 #----------------------code stops-------------------------------
 
 #---------------------code starts here-------------------------------------
+#hypthesis number 2
 #scheduled elapsed time code
 scheduled_elapsed_time_in_minutes = 0              
 for i in range(len(flightdata["Scheduled elapsed time (Minutes)"])):
@@ -81,4 +84,26 @@ else:
 print(cancelledflightcount)
 
 #-------------------------code ends here-----------------------------
+#hypothesis 3
+#-------------------------code starts here-----------------------------
+
 #this is the analysis for the outputs: Our original hypothesis was that the Actual elapsed time in minutes would be greater then the scheduled elapsed time in minutes for flights. But since the Mean scheduled Elapsed Time, in minutes is actual greater than the Mean actual Elapsed Time in minutes we can conclude that the hypothesis was wrong and that Mean actual Elapsed Time, in minutes, is actual less than the scheduled. 
+
+# Calculate the delay time for each flight
+filtered_data["Delay"] = (filtered_data["Scheduled departure time"] - filtered_data["Actual departure time"]).dt.total_seconds() / 60
+
+# Extract the hour from the departure time
+filtered_data["Hour of Departure"] = filtered_data["Scheduled departure time"].dt.hour
+
+# Calculate the average delays by hour of departure
+average_delays_by_hour = filtered_data.groupby("Hour of Departure")["Delay"].mean()
+
+# Plot the average delays as a line graph
+plt.figure(figsize=(10, 6))
+plt.plot(average_delays_by_hour.index, average_delays_by_hour, marker='o', linestyle='-')
+plt.xlabel("Hour of Departure")
+plt.ylabel("Average Delay (minutes)")
+plt.title("Average Flight Delay by Hour of Departure for all data points")
+plt.grid(True)
+plt.show()
+#-------------------------code ends here----------------------------
