@@ -24,10 +24,6 @@ epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"] - start_date
 epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"]/86400
 modflightdata["Days since 12.20.2022"] = epochsince["Date (MM/DD/YYYY)"].astype(np.int64)
 
-#This is the analysis for the outputs: Our original hypothesis was that the Actual elapsed time in minutes 
-would be greater then the scheduled elapsed time in minutes for flights. But since the Mean scheduled Elapsed 
-Time, in minutes is actual greater than the Mean actual Elapsed Time in minutes we can conclude that the 
-hypothesis was wrong and that Mean actual Elapsed Time, in minutes, is actual less than the scheduled. 
 
 
 #------------------------code starts---------------------
@@ -60,6 +56,7 @@ plt.show()
 
 #---------------------code starts here-------------------------------------
 #hypthesis number 2
+#---------------------code starts here-------------------------------------
 #scheduled elapsed time code
 scheduled_elapsed_time_in_minutes = 0              
 for i in range(len(flightdata["Scheduled elapsed time (Minutes)"])):
@@ -85,8 +82,29 @@ if count > 0:
     print("Mean Actual Elapsed Time:", mean_actual_elapsed_time)
 else:
     print("No positive values in the 'Actual elapsed time (Minutes)' column.")
-               
-print(cancelledflightcount)
+            
+scheduled_elapsed_time_mean = flightdata[flightdata["Scheduled elapsed time (Minutes)"] > 0]["Scheduled elapsed time (Minutes)"].mean()
+
+# Calculate the mean of Actual elapsed time with positive values
+actual_elapsed_time_mean = flightdata[flightdata["Actual elapsed time (Minutes)"] > 0]["Actual elapsed time (Minutes)"].mean()
+
+# Create a DataFrame for plotting
+mean_times = pd.DataFrame({
+    "Mean Elapsed Time": [scheduled_elapsed_time_mean, actual_elapsed_time_mean]
+}, index=["Scheduled", "Actual"])
+
+# Create a bar graph
+mean_times.plot(kind="bar", legend=False)
+plt.title("Mean Scheduled vs. Actual Elapsed Time")
+plt.ylabel("Mean Elapsed Time (Minutes)")
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.show()
+#This is the analysis for the outputs: Our original hypothesis was that the Actual elapsed time in minutes 
+#would be greater then the scheduled elapsed time in minutes for flights. But since the Mean scheduled Elapsed 
+#Time, in minutes is actual greater than the Mean actual Elapsed Time in minutes we can conclude that the 
+#hypothesis was wrong and that Mean actual Elapsed Time, in minutes, is actual less than the scheduled. 
+
 
 #-------------------------code ends here-----------------------------
 #hypothesis 3
