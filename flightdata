@@ -24,11 +24,6 @@ epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"] - start_date
 epochsince["Date (MM/DD/YYYY)"] = epochsince["Date (MM/DD/YYYY)"]/86400
 modflightdata["Days since 12.20.2022"] = epochsince["Date (MM/DD/YYYY)"].astype(np.int64)
 
-#for index, row in modflightdata.iterrows():
-
-print(modflightdata)
-print(epochsince)
-print(type(flightdata.iat[1000,9]))
 
 #------------------------code starts---------------------
 
